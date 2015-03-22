@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block bodystyle %}
+    background: url({{ life_img }}); background-size: cover;
+{% endblock bodystyle %}
+
+{% block body %}
+    {% if error %}
+        <section class="error">
+            {% if error == 'limit' %}
+            <p>Daily image request limit exceeded. 😭
+            {% else %}
+            <p>Error contacting Google image search. 😕
+            {% endif %}
+
+        </section>
+    {% else %}
+        <section id="pattern" style="{{ pattern_style }}">
+            <a href="/"></a>
+        </section>
+    {% endif %}
+
+{% endblock body %}

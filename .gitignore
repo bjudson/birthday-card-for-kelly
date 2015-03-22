@@ -1,0 +1,5 @@
+.DS_Store
+*.pyc
+kelly/wsgi.py
+kelly/settings/dev.py
+kelly/settings/prod.py
