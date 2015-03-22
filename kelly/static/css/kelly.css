@@ -24,6 +24,13 @@ a {
     animation: fade-transparent 5s;
 }
 
+a.fade {
+    opacity: 1;
+    -webkit-animation: fade-opaque 4s;
+    -moz-animation: fade-opaque 4s;
+    animation: fade-opaque 4s;
+}
+
 .error p {
     font-family: helvetica, sans-serif;
     font-size: 24px;
@@ -49,4 +56,19 @@ a {
     0% { opacity: 1; }
    25% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@-webkit-keyframes fade-opaque {
+    0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@-moz-keyframes fade-opaque {
+    0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fade-opaque {
+    0% { opacity: 0; }
+  100% { opacity: 1; }
 }
