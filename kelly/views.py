@@ -12,10 +12,10 @@ from kelly import app
 service = discovery.build("customsearch", "v1",
                           developerKey=GOOGLE_DEV_KEY)
 
-YEARS = [str(yr) for yr in range(1962, 1970)]
+YEARS = [str(yr) for yr in range(1950, 1970)]
 YEAR_QRY = ' OR '.join(YEARS)
 
-SEARCHES = ['palm', 'beach', 'swimming', 'fashion', 'lake']
+SEARCHES = ['beach', 'swimming', 'fashion', 'lake']
 
 COLORS = [
     'rgba(106,185,231, .3)',
@@ -35,17 +35,35 @@ PATTERNS = [
         background-size: 80px 80px;
         background-color: transparent;""",
     # table cloth
-    """background-color: transparent;
-        background-image: linear-gradient(90deg, {color} 50%, transparent 50%),
+    """background-image: linear-gradient(90deg, {color} 50%, transparent 50%),
         linear-gradient({color} 50%, transparent 50%);
-        background-size:100px 100px;""",
+        background-size:150px 150px;""",
     # shippo http://lea.verou.me/css3patterns/#shippo
-    """background-color:transparent;
-        background-image: radial-gradient(closest-side, transparent 98%, {color} 99%),
+    """background-image: radial-gradient(closest-side, transparent 98%,
+            {color} 99%),
         radial-gradient(closest-side, transparent 98%, {color} 99%);
         background-size:80px 80px;
         background-position:0 0, 40px 40px;""",
+    # vertical stripes
+    """background-image: linear-gradient(90deg, transparent 50%, {color} 50%);
+        background-size: 100px 100px;""",
+    # horizontal stripes
+    """background-image: linear-gradient(transparent 50%, {color} 50%);
+        background-size: 100px 100px;"""
+]
 
+KNOWN_IMG = [
+    'http://www.gstatic.com/hostedimg/81360443f9dd01d2_large',
+    'http://www.gstatic.com/hostedimg/a691763c7ee2702f_large',
+    'http://www.gstatic.com/hostedimg/77083763cc3180f9_large',
+    'http://www.gstatic.com/hostedimg/ac2f40cedb039e80_large',
+    'http://www.gstatic.com/hostedimg/c99f0c44fef4dee5_large',
+    'http://www.gstatic.com/hostedimg/7252eaa51e38dc0c_large',
+    'http://www.gstatic.com/hostedimg/6c0ef0b058dd7aa9_large',
+    'http://www.gstatic.com/hostedimg/c7e2d4fbd31472cb_large',
+    'http://www.gstatic.com/hostedimg/8ce35f8f07f0b813_large',
+    'http://www.gstatic.com/hostedimg/d9635a465cc165e9_large',
+    'http://www.gstatic.com/hostedimg/a8c22eab5e0c2031_large'
 ]
 
 
@@ -66,8 +84,16 @@ def get_img(url):
     return img_link['href']
 
 
+def get_known_img():
+    return random.choice(KNOWN_IMG)
+
+
 @app.route("/", methods=['GET', 'OPTIONS'])
 def home(account=None):
+    """
+    Searches for an image and returns it along with a random CSS pattern
+    overlay
+    """
     img_link = None
     res = []
 
@@ -83,13 +109,15 @@ def home(account=None):
                 safe='off'
             ).execute()
     except google_errors.HttpError, err:
-        if 'Daily Limit Exceeded' in str(err):
-            return render_template('home.html', error='limit')
-        else:
-            return render_template('home.html', error=err)
-
-    while img_link is None:
-        img_link = get_img(random.choice(res['items'])['link'])
+        # if 'Daily Limit Exceeded' in str(err):
+        #     return render_template('home.html', error='limit')
+        # else:
+        #     return render_template('home.html', error=err)
+        app.logger.debug(err)
+        img_link = get_known_img()
+    else:
+        while img_link is None:
+            img_link = get_img(random.choice(res['items'])['link'])
 
     pattern = random.choice(PATTERNS).format(color=random.choice(COLORS))
 

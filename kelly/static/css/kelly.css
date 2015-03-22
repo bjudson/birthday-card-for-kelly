@@ -17,6 +17,11 @@ a {
     width: 100%;
     height: 100%;
     position: absolute;
+    background: #fff;
+    opacity: 0;
+    -webkit-animation: fade-transparent 5s;
+    -moz-animation: fade-transparent 5s;
+    animation: fade-transparent 5s;
 }
 
 .error p {
@@ -26,4 +31,22 @@ a {
     text-align: center;
     position: relative;
     top: 40%;
+}
+
+@-webkit-keyframes fade-transparent {
+    0% { opacity: 1; }
+   25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@-moz-keyframes fade-transparent {
+    0% { opacity: 1; }
+   25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes fade-transparent {
+    0% { opacity: 1; }
+   25% { opacity: 1; }
+  100% { opacity: 0; }
 }
