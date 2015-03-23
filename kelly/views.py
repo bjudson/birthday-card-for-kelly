@@ -92,9 +92,10 @@ def get_img(url):
 
 
 def get_known_img(prev_img):
-    if prev_img is not None:
-        KNOWN_IMG.remove(prev_img)
-    return random.choice(KNOWN_IMG)
+    while True:
+        img = random.choice(KNOWN_IMG)
+        if img != prev_img:
+            return img
 
 
 @app.route("/", methods=['GET', 'OPTIONS'])
