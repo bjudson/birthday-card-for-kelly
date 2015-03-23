@@ -16,8 +16,21 @@
         </section>
     {% else %}
         <section id="pattern" style="{{ pattern_style }}">
-            <a href="/"></a>
+            <a href="/">
+                <p>Happy birthday to you</p>
+                <p>Happy birthday to you</p>
+                <p>Happy birthday dear Kelly</p>
+                <p>Happy birthday to you</p>
+                <p style="font-size: 36px;">🎂</p>
+                <p>Love, Ben</p>
+            </a>
         </section>
     {% endif %}
 
 {% endblock body %}
+
+{% block footscripts %}
+    <script>
+        var life_img = "{{ life_img }}";
+    </script>
+{% endblock footscripts %}

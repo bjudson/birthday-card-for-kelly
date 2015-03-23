@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import render_template
+from flask import request, render_template, jsonify
 import urllib2
 import random
 from apiclient import discovery, errors as google_errors
@@ -50,6 +50,13 @@ PATTERNS = [
     # horizontal stripes
     """background-image: linear-gradient(transparent 50%, {color} 50%);
         background-size: 100px 100px;"""
+    # waves
+    """background:
+        radial-gradient(circle at 100% 50%, transparent 20%, {color} 21%,
+            {color} 34%, transparent 35%, transparent),
+        radial-gradient(circle at 0% 50%, transparent 20%, {color} 21%,
+            {color} 34%, transparent 35%, transparent) 0 -50px;
+        background-size:75px 100px;"""
 ]
 
 KNOWN_IMG = [
@@ -84,7 +91,9 @@ def get_img(url):
     return img_link['href']
 
 
-def get_known_img():
+def get_known_img(prev_img):
+    if prev_img is not None:
+        KNOWN_IMG.remove(prev_img)
     return random.choice(KNOWN_IMG)
 
 
@@ -94,7 +103,9 @@ def home(account=None):
     Searches for an image and returns it along with a random CSS pattern
     overlay
     """
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     img_link = None
+    prev_img = request.args.get('life_img', None)
     res = []
 
     try:
@@ -114,12 +125,18 @@ def home(account=None):
         # else:
         #     return render_template('home.html', error=err)
         app.logger.debug(err)
-        img_link = get_known_img()
+        img_link = get_known_img(prev_img)
     else:
         while img_link is None:
             img_link = get_img(random.choice(res['items'])['link'])
 
     pattern = random.choice(PATTERNS).format(color=random.choice(COLORS))
 
-    return render_template('home.html', life_img=img_link,
-                           pattern_style=pattern, term=term)
+    if is_ajax:
+        return jsonify({
+            'life_img': img_link,
+            'pattern_style': pattern
+        })
+    else:
+        return render_template('home.html', life_img=img_link,
+                               pattern_style=pattern)

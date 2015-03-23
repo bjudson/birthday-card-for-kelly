@@ -19,6 +19,7 @@ a {
     position: absolute;
     background: #fff;
     opacity: 0;
+    text-decoration: none;
     -webkit-animation: fade-transparent 5s;
     -moz-animation: fade-transparent 5s;
     animation: fade-transparent 5s;
@@ -31,13 +32,21 @@ a.fade {
     animation: fade-opaque 4s;
 }
 
-.error p {
+.error p, a p {
     font-family: helvetica, sans-serif;
     font-size: 24px;
     color: #999;
     text-align: center;
     position: relative;
     top: 40%;
+}
+
+a p {
+    display: none;
+}
+
+a p:first-child {
+    display: block;
 }
 
 @-webkit-keyframes fade-transparent {
