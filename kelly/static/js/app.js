@@ -1,9 +1,8 @@
 (function(){
     var content_data;
 
-    function clickNext(e) {
-        e.preventDefault();
-        var me = $(this);
+    function loadNext($el) {
+        var me = $el;
         me.children().first().remove();
         me.addClass('fade');
 
@@ -21,6 +20,6 @@
         }, 5000, this);
     }
 
-    $('a').on('click', clickNext);
+    setInterval(function(){ loadNext($('.msg_layer')); }, 10000);
 })();
 
