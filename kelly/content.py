@@ -59,7 +59,6 @@ KNOWN_IMG = [
     'http://www.gstatic.com/hostedimg/ac2f40cedb039e80_large',
     'http://www.gstatic.com/hostedimg/c99f0c44fef4dee5_large',
     'http://www.gstatic.com/hostedimg/7252eaa51e38dc0c_large',
-    'http://www.gstatic.com/hostedimg/6c0ef0b058dd7aa9_large',
     'http://www.gstatic.com/hostedimg/c7e2d4fbd31472cb_large',
     'http://www.gstatic.com/hostedimg/8ce35f8f07f0b813_large',
     'http://www.gstatic.com/hostedimg/d9635a465cc165e9_large',

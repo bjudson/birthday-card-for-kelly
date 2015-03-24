@@ -1,12 +1,13 @@
 (function(){
-    var content_data;
+    var content_data, 
+        img_num = 0;
 
     function loadNext($el) {
         var me = $el;
         me.children().first().remove();
         me.addClass('fade');
 
-        $.get('/', {life_img: life_img}, function(data, status, xhr) {
+        $.get('/', {life_img: life_img, img_num: img_num}, function(data, status, xhr) {
             content_data = data;
         });
 
@@ -20,6 +21,9 @@
         }, 5000, this);
     }
 
-    setInterval(function(){ loadNext($('.msg_layer')); }, 10000);
+    setInterval(function(){ 
+        img_num++;
+        loadNext($('.msg_layer')); 
+    }, 10000);
 })();
 

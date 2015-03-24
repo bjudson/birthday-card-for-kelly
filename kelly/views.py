@@ -16,6 +16,14 @@ service = discovery.build("customsearch", "v1",
                           developerKey=GOOGLE_DEV_KEY)
 
 
+class UseKnown(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return repr(self.value)
+
+
 def get_img(url):
     """
     From a search result, scrape the URL for the large version of the image
@@ -55,9 +63,12 @@ def home(account=None):
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     img_link = None
     prev_img = request.args.get('life_img', None)
+    img_num = request.args.get('img_num', 0)
     res = []
 
     try:
+        if img_num < 4:
+            raise UseKnown('Image num = %d' % img_num)
         while 'items' not in res:
             term = random.choice(SEARCHES)
             app.logger.debug('Search term = %s' % (term))
@@ -74,6 +85,8 @@ def home(account=None):
         # else:
         #     return render_template('home.html', error=err)
         app.logger.debug(err)
+        img_link = get_known_img(prev_img)
+    except UseKnown:
         img_link = get_known_img(prev_img)
     else:
         while img_link is None:
