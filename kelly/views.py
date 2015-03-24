@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from flask import request, render_template, jsonify
 import urllib2
 import random
-from apiclient import discovery, errors as google_errors
 from bs4 import BeautifulSoup
-from kelly import GOOGLE_DEV_KEY
+from flask import request, render_template, jsonify
+from apiclient import discovery, errors as google_errors
 
+from kelly import GOOGLE_DEV_KEY, CSE_ID
 from kelly import app
 
+# Build the Google CSE service
 service = discovery.build("customsearch", "v1",
                           developerKey=GOOGLE_DEV_KEY)
 
@@ -133,7 +134,7 @@ def home(account=None):
             app.logger.debug('Search term = %s' % (term))
             res = service.cse().list(
                 q='%s %s' % (YEAR_QRY, term),
-                cx='013641164171198299620:yexpiblgggs',
+                cx=CSE_ID,
                 # searchType='image',
                 # imgSize='xlarge',
                 safe='off'

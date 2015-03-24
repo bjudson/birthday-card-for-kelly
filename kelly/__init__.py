@@ -19,6 +19,7 @@ app.debug = settings.DEBUG
 app.config['SECRET_KEY'] = settings.SECRET
 
 try:
+    CSE_ID = settings.CSE_ID
     GOOGLE_DEV_KEY = settings.GOOGLE_DEV_KEY
 except KeyError:
     pass
