@@ -15,7 +15,7 @@ service = discovery.build("customsearch", "v1",
 YEARS = [str(yr) for yr in range(1950, 1970)]
 YEAR_QRY = ' OR '.join(YEARS)
 
-SEARCHES = ['beach', 'swimming', 'fashion', 'lake']
+SEARCHES = ['beach', 'swimming', 'fashion', 'dancing', 'future', 'rock']
 
 COLORS = [
     'rgba(106,185,231, .3)',
@@ -74,7 +74,8 @@ KNOWN_IMG = [
     'http://www.gstatic.com/hostedimg/6aa584f0a210cae5_large',
     'http://www.gstatic.com/hostedimg/da4f18bad1b71401_large',
     'http://www.gstatic.com/hostedimg/858cc80e309605e0_large',
-    'http://www.gstatic.com/hostedimg/4df9ad7b2281068a_large'
+    'http://www.gstatic.com/hostedimg/4df9ad7b2281068a_large',
+    'http://www.gstatic.com/hostedimg/5ecf1cbdb1963a94_large'
 ]
 
 
