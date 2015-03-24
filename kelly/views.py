@@ -15,7 +15,8 @@ service = discovery.build("customsearch", "v1",
 YEARS = [str(yr) for yr in range(1950, 1970)]
 YEAR_QRY = ' OR '.join(YEARS)
 
-SEARCHES = ['beach', 'swimming', 'fashion', 'dancing', 'future', 'rock']
+SEARCHES = ['beach', 'swimming', 'fashion', 'dancing', 'future', 'rock',
+            'eames']
 
 COLORS = [
     'rgba(106,185,231, .3)',
