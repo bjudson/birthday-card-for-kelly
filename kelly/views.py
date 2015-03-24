@@ -12,12 +12,15 @@ from kelly import app
 service = discovery.build("customsearch", "v1",
                           developerKey=GOOGLE_DEV_KEY)
 
+# Look for things in the 50s and 60s
 YEARS = [str(yr) for yr in range(1950, 1970)]
 YEAR_QRY = ' OR '.join(YEARS)
 
+# These search terms have some good images
 SEARCHES = ['beach', 'swimming', 'fashion', 'dancing', 'future', 'rock',
             'eames']
 
+# Some colors I pulled from Kelly's work
 COLORS = [
     'rgba(106,185,231, .3)',
     'rgba(59,182,77, .3)',
@@ -26,6 +29,8 @@ COLORS = [
     'rgba(251,86,48, .3)'
 ]
 
+# CSS patterns were taken from http://lea.verou.me/css3patterns/
+# Modified to have transparent backgrounds
 PATTERNS = [
     # zigzag
     """background:
@@ -60,6 +65,7 @@ PATTERNS = [
         background-size:75px 100px;"""
 ]
 
+# Cool manually selected images we can use as backups in case of Google error
 KNOWN_IMG = [
     'http://www.gstatic.com/hostedimg/81360443f9dd01d2_large',
     'http://www.gstatic.com/hostedimg/a691763c7ee2702f_large',
@@ -81,6 +87,9 @@ KNOWN_IMG = [
 
 
 def get_img(url):
+    """
+    From a search result, scrape the URL for the large version of the image
+    """
     try:
         page = urllib2.urlopen(url)
     except urllib2.HTTPError, err:
@@ -98,6 +107,9 @@ def get_img(url):
 
 
 def get_known_img(prev_img):
+    """
+    If there was an error scraping, we'll fall back on a known image
+    """
     while True:
         img = random.choice(KNOWN_IMG)
         if img != prev_img:
