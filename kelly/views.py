@@ -70,7 +70,11 @@ KNOWN_IMG = [
     'http://www.gstatic.com/hostedimg/c7e2d4fbd31472cb_large',
     'http://www.gstatic.com/hostedimg/8ce35f8f07f0b813_large',
     'http://www.gstatic.com/hostedimg/d9635a465cc165e9_large',
-    'http://www.gstatic.com/hostedimg/a8c22eab5e0c2031_large'
+    'http://www.gstatic.com/hostedimg/a8c22eab5e0c2031_large',
+    'http://www.gstatic.com/hostedimg/6aa584f0a210cae5_large',
+    'http://www.gstatic.com/hostedimg/da4f18bad1b71401_large',
+    'http://www.gstatic.com/hostedimg/858cc80e309605e0_large',
+    'http://www.gstatic.com/hostedimg/4df9ad7b2281068a_large'
 ]
 
 

@@ -13,7 +13,7 @@
         setTimeout(function(){
             if(typeof content_data !== 'undefined'){
                 life_img = content_data.life_img;
-                $('body').attr('style', 'background: url(' + life_img + ') no-repeat center center; background-size: cover;');
+                $('.img_layer').attr('style', 'background: url(' + life_img + ') no-repeat center center; background-size: cover;');
                 $('#pattern').attr('style', content_data.pattern_style);
                 me.removeClass('fade');
             }

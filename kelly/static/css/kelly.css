@@ -10,6 +10,26 @@ html, body {
 
 section {
     height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+a {
+    color: #333;
+    text-decoration: underline;
+}
+
+.img_layer {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    -webkit-filter: saturate(50%);
+    -moz-filter: saturate(50%);
+    filter: saturate(50%);
+}
+
+#pattern {
+    z-index: 10;
 }
 
 .msg_layer {
