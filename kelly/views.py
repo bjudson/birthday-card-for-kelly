@@ -16,7 +16,11 @@ service = discovery.build("customsearch", "v1",
                           developerKey=GOOGLE_DEV_KEY)
 
 
-class UseKnown(Exception):
+class UseKnownImg(Exception):
+    """
+    This exception is used to prevent performing a search and loading a
+    known image instead
+    """
     def __init__(self, msg):
         self.msg = msg
 
@@ -58,7 +62,11 @@ def get_known_img(prev_img):
 def home(account=None):
     """
     Searches for an image and returns it along with a random CSS pattern
-    overlay
+    overlay.
+
+    Google doesn't seem to allow searching for images in the Life archive,
+    so we have to search for web results, and then scrape the image URL with
+    get_img()
     """
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     img_link = None
@@ -68,13 +76,17 @@ def home(account=None):
 
     try:
         if img_num < 4:
-            raise UseKnown('Image num = %d' % img_num)
+            raise UseKnownImg('Image num = %d' % img_num)
         while 'items' not in res:
             term = random.choice(SEARCHES)
             app.logger.debug('Search term = %s' % (term))
             res = service.cse().list(
                 q='%s %s' % (YEAR_QRY, term),
                 cx=CSE_ID,
+                # Uncomment the options below to get image results rather than
+                # page results. More options here:
+                # https://developers.google.com/custom-search/json-api/v1/reference/cse/list
+                #
                 # searchType='image',
                 # imgSize='xlarge',
                 safe='off'
@@ -86,7 +98,7 @@ def home(account=None):
         #     return render_template('home.html', error=err)
         app.logger.debug(err)
         img_link = get_known_img(prev_img)
-    except UseKnown:
+    except UseKnownImg:
         img_link = get_known_img(prev_img)
     else:
         while img_link is None:

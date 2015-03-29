@@ -6,7 +6,7 @@ YEAR_QRY = ' OR '.join(YEARS)
 SEARCHES = ['beach', 'swimming', 'fashion', 'dancing', 'future', 'rock',
             'eames']
 
-# Some colors I pulled from Kelly's work
+# Some colors I pulled from Kelly's work (added transparency)
 COLORS = [
     'rgba(106,185,231, .3)',
     'rgba(59,182,77, .3)',
